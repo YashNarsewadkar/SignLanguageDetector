@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Register</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 300px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #764ba2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #6b46c1;
+      }
+
+      a {
+        color: #667eea;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h2>Register</h2>
+
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button onclick="register()">Register</button>
+
+      <p>Already user? <a href="login.html">Login</a></p>
+    </div>
+
+    <script>
+      function register() {
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+
+        if (!user || !pass) {
+          alert("Enter all fields");
+          return;
+        }
+
+        if (localStorage.getItem(user)) {
+          alert("User already exists");
+          return;
+        }
+
+        localStorage.setItem(user, pass);
+        alert("Registered Successfully");
+
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>

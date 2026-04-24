@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Login</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 300px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #5a67d8;
+      }
+
+      a {
+        color: #667eea;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h2>Login</h2>
+
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button onclick="login()">Login</button>
+
+      <p>New user? <a href="register.html">Register</a></p>
+    </div>
+
+    <script>
+      function login() {
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+
+        if (!user || !pass) {
+          alert("Enter all fields");
+          return;
+        }
+
+        let stored = localStorage.getItem(user);
+
+        if (stored === pass) {
+          localStorage.setItem("currentUser", user);
+          window.location.href = "index.html";
+        } else {
+          alert("Invalid login");
+        }
+      }
+    </script>
+  </body>
+</html>
