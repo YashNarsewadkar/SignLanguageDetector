@@ -1,0 +1,526 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Main content */
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+/* Video section */
+.video-section {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+#video {
+    width: 100%;
+    height: 360px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    object-fit: cover;
+}
+
+#canvas {
+    width: 100%;
+    height: 360px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    background: #f9f9f9;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+/* Buttons */
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #f44336;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #da190b;
+    transform: translateY(-2px);
+}
+
+.btn-clear {
+    background: #ff9800;
+    color: white;
+}
+
+.btn-clear:hover {
+    background: #e68900;
+    transform: translateY(-2px);
+}
+
+.btn-speak {
+    background: #2196F3;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.btn-speak:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Output section */
+.output-section {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.text-output, .speech-controls {
+    margin-bottom: 25px;
+}
+
+.text-output h3, .speech-controls h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.text-display {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 120px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.current-gesture {
+    margin-top: 15px;
+    padding: 10px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#gesture-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#confidence {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.voice-controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    gap: 10px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.voice-controls label {
+    font-weight: 600;
+    color: #555;
+}
+
+#voice-select {
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#rate-control {
+    width: 100px;
+}
+
+#rate-value {
+    font-weight: 600;
+    color: #555;
+    min-width: 30px;
+}
+
+/* Status bar */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.status, .fps {
+    font-weight: 600;
+}
+
+.fps {
+    font-family: 'Courier New', monospace;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .voice-controls {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .status-bar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.recording {
+    animation: pulse 2s infinite;
+}
+
+.status-indicator {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.status-indicator span {
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+/* Gesture Controls */
+.gesture-controls {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+.gesture-controls h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.gesture-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-gesture {
+    padding: 8px 12px;
+    background: #6c757d;
+    color: white;
+    font-size: 0.9rem;
+    border-radius: 6px;
+}
+
+.btn-gesture:hover {
+    background: #5a6268;
+}
+
+/* Gesture Creation Panel */
+.gesture-creation {
+    background: #fff3cd;
+    border: 2px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.gesture-creation h3 {
+    color: #856404;
+    margin: 0 0 15px 0;
+}
+
+.creation-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+#gesture-name-input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-width: 200px;
+}
+
+#gesture-name-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+.btn-record {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-record:hover {
+    background: #c0392b;
+}
+
+.btn-record:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.btn-save {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #229954;
+}
+
+.btn-cancel {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #7f8c8d;
+}
+
+/* Recording Status */
+.recording-status {
+    margin-top: 10px;
+}
+
+.recording-indicator {
+    background: #ffebee;
+    border: 2px solid #e57373;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    animation: pulse-recording 2s infinite;
+}
+
+@keyframes pulse-recording {
+    0% { background-color: #ffebee; }
+    50% { background-color: #ffcdd2; }
+    100% { background-color: #ffebee; }
+}
+
+.recording-progress {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #c62828;
+}
+
+/* Current Gestures Display */
+.current-gestures {
+    margin-bottom: 20px;
+}
+
+.current-gestures h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.gestures-display {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 60px;
+}
+
+.gesture-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gesture-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.gesture-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.btn-remove {
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+
+.btn-remove:hover {
+    background: #c82333;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+    .creation-form {
+        flex-direction: column;
+    }
+    
+    #gesture-name-input {
+        min-width: auto;
+    }
+    
+    .gesture-buttons {
+        justify-content: center;
+    }
+    
+    .status-indicator {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* Additional button states */
+.btn-speak.speaking {
+    background: #dc3545 !important;
+    animation: pulse 1s infinite;
+}
+
+/* Enhanced current gesture display */
+.current-gesture {
+    margin-top: 15px;
+    padding: 12px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+}
+
+#gesture-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    flex: 1;
+}
+
+#confidence {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* No gestures state */
+.no-gestures {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}

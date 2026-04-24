@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sign Language Recognition</title>
+
+    <!-- FIXED CSS LINK -->
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- MediaPipe CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <!-- TensorFlow.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0/dist/tf.min.js"></script>
+
+    <!-- Fingerpose for gesture recognition -->
+    <script src="https://cdn.jsdelivr.net/npm/fingerpose@0.1.0/dist/fingerpose.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤟 AI Sign Language Recognition</h1>
+            <p>Custom Gesture Training System</p>
+           
+        </header>
+
+        <main>
+            <div class="video-section">
+                <video id="video" autoplay muted playsinline></video>
+                <canvas id="canvas" width="640" height="480"></canvas>
+
+                <div class="controls">
+                    <button id="start-btn" class="btn-primary">Start Detection</button>
+                    <button id="stop-btn" class="btn-secondary" disabled>Stop Detection</button>
+                    <button id="clear-btn" class="btn-clear">Clear Text</button>
+                </div>
+
+                <!-- Gesture Management -->
+                <div class="gesture-controls">
+                    <h4>Gesture Management</h4>
+                    <div class="gesture-buttons">
+                        <button id="add-gesture-btn" class="btn-gesture">➕ Add New Gesture</button>
+                        <button id="list-gestures-btn" class="btn-gesture">📋 List Gestures</button>
+                        <button id="clear-gestures-btn" class="btn-gesture">🧹 Clear All</button>
+                        <button id="train-model-btn" class="btn-gesture">🚀 Train Model</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <!-- Gesture Creation Panel -->
+                <div class="gesture-creation" id="gesture-creation-panel" style="display: none;">
+                    <h3>Create New Gesture</h3>
+                    <div class="creation-form">
+                        <input type="text" id="gesture-name-input" placeholder="Enter gesture name">
+                        <button id="record-gesture-btn" class="btn-record">🎯 Record This Gesture</button>
+                        <button id="save-gesture-btn" class="btn-save" disabled>💾 Save Gesture</button>
+                        <button id="cancel-gesture-btn" class="btn-cancel">❌ Cancel</button>
+                    </div>
+                    <div class="recording-status" id="recording-status"></div>
+                </div>
+
+                <!-- Current Gestures List -->
+                <div class="current-gestures">
+                    <h3>Active Gestures</h3>
+                    <div id="gestures-list" class="gestures-display">
+                        <p>No gestures defined. Add your first gesture!</p>
+                    </div>
+                </div>
+
+                <div class="text-output">
+                    <h3>Detected Text:</h3>
+                    <div id="detected-text" class="text-display"></div>
+                    <div id="current-gesture" class="current-gesture">
+                        <span id="gesture-name">Ready for custom gestures</span>
+                        <span id="confidence"></span>
+                    </div>
+                </div>
+
+                <div class="speech-controls">
+                    <h3>Text to Speech:</h3>
+                    <button id="speak-btn" class="btn-speak" disabled>🔊 Speak Text</button>
+                    <div class="voice-controls">
+                        <label for="voice-select">Voice:</label>
+                        <select id="voice-select"></select>
+                        <label for="rate-control">Rate:</label>
+                        <input type="range" id="rate-control" min="0.1" max="2" step="0.1" value="1">
+                        <span id="rate-value">1.0</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="status-bar">
+            <div id="status" class="status">Ready - No gestures defined</div>
+            <div id="fps" class="fps">FPS: 0</div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules in correct order -->
+    <script src="./js/textToSpeech.js"></script>
+    <script src="./js/handDetection.js"></script>
+    <script src="./js/gestureRecognition.js"></script>
+    <script src="./js/camera.js"></script>
+    <script src="./js/main.js"></script>
+
+    <!-- CSS Status Check -->
+    <script>
+        // Check if CSS loaded properly
+        document.addEventListener('DOMContentLoaded', function() {
+            const testElement = document.createElement('div');
+            testElement.style.display = 'none';
+            testElement.className = 'container';
+            document.body.appendChild(testElement);
+
+            const computedStyle = window.getComputedStyle(testElement);
+            const cssStatus = document.getElementById('css-status');
+
+            if (computedStyle.maxWidth !== 'none' && computedStyle.maxWidth !== '') {
+                cssStatus.textContent = 'CSS: ✅ Loaded';
+                cssStatus.style.color = '#4CAF50';
+            } else {
+                cssStatus.textContent = 'CSS: ❌ Failed';
+                cssStatus.style.color = '#f44336';
+                console.error('CSS not loading properly. Check file path: ./styles.css');
+            }
+
+            document.body.removeChild(testElement);
+
+            // Check JS status
+            const jsStatus = document.getElementById('js-status');
+            if (typeof SignLanguageApp !== 'undefined') {
+                jsStatus.textContent = 'JS: ✅ Loaded';
+                jsStatus.style.color = '#4CAF50';
+            } else {
+                jsStatus.textContent = 'JS: ⚠️ Loading...';
+                jsStatus.style.color = '#ff9800';
+            }
+        });
+    </script>
+</body>
+</html>

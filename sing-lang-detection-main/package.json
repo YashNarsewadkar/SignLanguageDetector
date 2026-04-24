@@ -1,0 +1,22 @@
+{
+  "name": "sign-language-ai-mvp",
+  "version": "1.0.0",
+  "description": "AI-powered sign language recognition MVP",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server . -p 3000 -o",
+    "start": "http-server . -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "keywords": [
+    "sign-language",
+    "ai",
+    "recognition",
+    "tensorflow",
+    "mediapipe"
+  ],
+  "author": "",
+  "license": "MIT"
+}
